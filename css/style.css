@@ -208,13 +208,69 @@ header nav {
 
 /***** HEADER (конец) *****/
 
+/***** Секция PROMO (начало) *****/
+.promo {
+    box-sizing: border-box;
+    height: 627px;
+    padding: 55px 0;
+
+    /* background-image: url("../img/promo/bg-promo.svg"); */
+    background-repeat: repeat-x;
+    background-position: 0 bottom;
+}
+
+.promo-content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-width: 500px;
+    height: 390px;
+}
+
+.promo-content .title {
+    max-width: 391px;
+    letter-spacing: -0.2px;
+}
+
+.promo-content strong {
+    color: #ef5e42;
+}
+
+.promo-content p {
+    font-size: 20px;
+}
+
+.promo-content .btn-play {
+    margin-left: 22px;
+
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #041032;
+}
+
+.promo-content .btn-play:hover {
+    color: #ef5e42;
+}
+
+.promo .promo-img {
+    position: relative;
+    z-index: 1;
+    top: -36px;
+    right: 140px;
+}
+/***** Секция PROMO (конец) *****/
+
 @media(min-width: 1300px) {
     .container {
         max-width: 1290px;
     }
 }
 
-@media(max-width: 1300px) {
+@media(max-width: 1299px) {
     .logo {
         max-width: 125px;
     }
@@ -231,13 +287,43 @@ header nav {
     }
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
     .main-menu {
         justify-content: flex-end;
     }
+
+     .promo {
+        padding-top: 0;
+    }
+
+    .promo-content {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .promo-content .title,
+    .promo-content p {
+        text-align: center;
+    }
+
+    .promo-content .title {
+        font-size: 32px;
+        min-width: 276px;
+        max-width: 642px;
+    }
 }
 
-@media(max-width: 480px) {
+@media(max-width: 767px) {
+    header {
+        padding-bottom: 0;
+    }
+
+    .promo {
+        padding-top: 30px;
+    }
+}
+
+@media(max-width: 479px) {
     .logo {
         max-width: 72px;
         margin-right: 10px;
@@ -252,5 +338,18 @@ header nav {
         padding-bottom: 14px;
 
         font-size: 13px;
+    }
+
+    .promo-content .title {
+        font-size: 28px;
+        max-width: 276px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons .btn {
+        margin-bottom: 20px;
     }
 }
