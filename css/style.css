@@ -214,9 +214,13 @@ header nav {
     height: 627px;
     padding: 55px 0;
 
-    /* background-image: url("../img/promo/bg-promo.svg"); */
+    background-image: url("../img/promo/bg-promo.svg");
     background-repeat: repeat-x;
     background-position: 0 bottom;
+}
+
+.promo article {
+    position: relative;
 }
 
 .promo-content {
@@ -227,7 +231,6 @@ header nav {
     flex-direction: column;
     justify-content: space-between;
 
-    min-width: 500px;
     height: 390px;
 }
 
@@ -257,16 +260,41 @@ header nav {
 }
 
 .promo .promo-img {
-    position: relative;
-    z-index: 1;
-    top: -36px;
-    right: 140px;
+    position: absolute;
 }
 /***** Секция PROMO (конец) *****/
+
+/***** Секция COMPANIES (начало) *****/
+.companies {
+    margin-top: -50px;
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.companies .container {
+    flex-direction: column;
+}
+
+.companies .title {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.companies .companies-list {
+    justify-content: space-between;
+}
+/***** Секция COMPANIES (конец) *****/
+
 
 @media(min-width: 1300px) {
     .container {
         max-width: 1290px;
+    }
+
+    .promo-img {
+        max-width: 1100px;
+        top: -36px;
+        left: 27%;
     }
 }
 
@@ -275,15 +303,18 @@ header nav {
         max-width: 125px;
     }
 
-    .main-menu .btn {
-        margin-right: 30px;
-
+    .btn {
         padding-left: 31px;
         padding-right: 28px;
         padding-top: 15px;
         padding-bottom: 15px;
 
         font-size: 15px;
+    }
+
+    .promo-img {
+        max-width: 684px !important;
+        left: 35%;
     }
 }
 
@@ -294,6 +325,7 @@ header nav {
 
      .promo {
         padding-top: 0;
+        background-image: none;
     }
 
     .promo-content {
@@ -306,10 +338,23 @@ header nav {
         text-align: center;
     }
 
-    .promo-content .title {
+    .title {
         font-size: 32px;
+    }
+
+    .promo-content .title {
         min-width: 276px;
         max-width: 642px;
+    }
+
+    .promo-img {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    .companies {
+        margin-top: 75px;
     }
 }
 
@@ -329,7 +374,7 @@ header nav {
         margin-right: 10px;
     }
 
-    .main-menu .btn {
+    .btn {
         margin-right: 16px;
 
         padding-left: 20px;
@@ -340,16 +385,23 @@ header nav {
         font-size: 13px;
     }
 
-    .promo-content .title {
+    .title {
         font-size: 28px;
+    }
+
+    .promo-content .title {        
         max-width: 276px;
     }
 
     .buttons {
         flex-direction: column;
+        margin-bottom: 50px;
     }
 
     .buttons .btn {
         margin-bottom: 20px;
+    }
+    .companies {
+        margin-top: 0;
     }
 }
