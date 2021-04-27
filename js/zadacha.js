@@ -11,7 +11,19 @@ let result = ((length + length2) / 2) * height;
 alert(`Площадь трапеции ${result}`);
 
 
+//Пользователь вводит сумму вклада и процент, который будет начисляться ежегодно.
+//Отобразить размер вклада поочередно на ближайшие 5 лет.
 
+let summ = parseInt(prompt("Введите сумму вклада:")); //Функция parseInt преобразует первый аргумент в число по указанному основанию, а если это невозможно - возвращает NaN. 
+let percent = parseInt(prompt("Введите размер процента:"));
+
+let result1 = summ + summ * percent / 100;
+let result2 = result1 + result1 * percent / 100;
+let result3 = result2 + result2 * percent / 100;
+let result4 = result3 + result3 * percent / 100;
+let result5 = result4 + result4 * percent / 100;
+
+alert(result1 + ", " + result2 + ", " + result3 + ", " + result4 + ", " + result5);
 
 
 // Запросить у пользователя ввод числа и сохранить это число в переменную a. Если
