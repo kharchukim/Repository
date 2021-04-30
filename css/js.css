@@ -1,0 +1,42 @@
+.btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 10px 30px;
+
+  color: #ffffff;
+  text-transform: uppercase;
+  background-color: darkred;
+  box-shadow: 0 0 5px #ff0000;
+  border-radius: 10px;
+}
+
+.btn-default {
+  width: 300px;
+  height: 60px;
+
+  margin-left: -150px;
+  margin-top: -30px;
+
+  font-size: 22px;
+}
+
+.btn-big {
+  width: 500px;
+  height: 100px;
+
+  margin-left: -250px;
+  margin-top: -50px;
+
+  font-size: 30px;
+}
+
+.btn-small {
+  width: 150px;
+  height: 50px;
+
+  margin-left: -75px;
+  margin-top: -15px;
+
+  font-size: 15px;
+}
