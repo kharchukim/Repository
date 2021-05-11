@@ -1,24 +1,94 @@
+// Заголовок
+// const title = document.createElement("h1");
+// title.style.color = "#f00f0f";
+// title.classList.add("title");
+
+// title.innerHTML = `<span>Друзья</span>, добро пожаловать!`;
+
+//afterbegin, afterend, beforebegin, beforeend
+// document.body.insertAdjacentElement("beforebegin", title);
+
+// Кнопка
+// const button = document.createElement("button");
+// button.id = "btn";
+// button.classList.add("btn-image");
+// button.textContent = "Показать картинку";
+// document.querySelector("h1.title").insertAdjacentElement("afterend", button);
+
+// Создание картинки
+document.getElementById("btn").addEventListener("click", createImage);
+
+function createImage() {
+	if (!document.getElementById("image")) {
+		const img = document.createElement("img");
+		img.id = "image";
+		img.alt = "Фото";
+		img.src = "../img/logo.svg";
+		img.className = "image";
+
+		setTimeout(() => {
+			document.getElementById("btn").insertAdjacentElement("afterend", img);
+			document.getElementById("btn").textContent = "Скрыть картинку";
+		}, 500);
+
+		// Клик по картинке
+		img.addEventListener("click", showMessage);
+	} else {
+		setTimeout(() => {
+			document.getElementById("image").remove();
+			if (document.getElementById("message")) {
+
+				document.getElementById("message").classList.remove("animate__rotateIn");
+				document.getElementById("message").classList.add("animate__rotateOut");
+
+				setTimeout(() => {
+					document.getElementById("message").remove();
+				}, 1000);
+			}
+			document.getElementById("btn").textContent = "Показать картинку";
+		}, 500);
+	}
+}
+
+function showMessage(e) {
+	const src = e.target.src;
+
+	if (!document.getElementById("message")) {
+		const div = document.createElement("div");
+		div.id = "message";
+		div.classList.add("message", "animate__animated", "animate__rotateIn");
+
+		const p = document.createElement("p");
+		p.innerHTML = `Адрес картинки: <strong>${src}</strong>`;
+		div.insertAdjacentElement("beforeend", p);
+
+		document.getElementById("image").insertAdjacentElement("afterend", div);
+	}
+}
+
+
+
 // 38. Дан массив с числами.Выведите последовательно его элементы используя рекурсию и не используя цикл.
 
-let mas = [];
+// let mas = [];
 
-const setElements = () => {
-	for (let i = 0; i < 2; i++) {
-		mas.push(Math.ceil(Math.random() * 10));
-	}
-}
+// const setElements = () => {
+// 	for (let i = 0; i < 2; i++) {
+// 		mas.push(Math.ceil(Math.random() * 10));
+// 	}
+// }
 
-setElements();
+// setElements();
 
-const getElements = (index) => {
+// const getElements = (index) => {
 
-	if (index < mas.length) {
-		return mas[index].toString() + '\n' + getElements(index + 1);
-	}
-	return "";
-}
+// 	if (index < mas.length) {
+// 		return mas[index].toString() + '\n' + getElements(index + 1);
+// 	}
+// 	return "";
+// }
 
-console.log(getElements(0));
+// console.log(getElements(0));
 
 
 // let factRecourse = function innerFact(num) {

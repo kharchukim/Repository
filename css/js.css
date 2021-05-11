@@ -1,3 +1,70 @@
+.title {
+	text-align: center;
+	text-transform: uppercase;
+	color: darkblue;
+}
+
+.title span {
+	background-color: lightyellow;
+}
+
+.btn-image {
+	display: block;
+	margin: auto;
+	padding: 7px 15px;
+
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+
+	color: white;
+	background-color: rgb(153, 0, 0);
+
+	transition: all 0.25s;
+}
+
+.btn-image:hover {
+	filter: contrast(250%);
+	cursor: pointer;
+}
+
+.image {
+	display: block;
+	margin: 50px auto;
+}
+
+.message {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 20%;
+	left: 50%;
+
+	width: 300px;
+	height: 150px;
+	margin-left: -150px;
+	margin-top: 75px;
+
+	border-radius: 20px;
+	background-color: black;
+	color: white;
+}
+
+.message p {
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.message strong {
+	display: block;
+	margin-top: 15px;
+
+	color: gold;
+	text-align: center;
+	text-transform: lowercase;
+}
+
 .btn {
 	position: absolute;
 	top: 50%;
