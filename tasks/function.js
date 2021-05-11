@@ -15,7 +15,7 @@ function checkOfNumber(val, message) {
 
 function getTaskNumber() {
     let taskNumber;
-    taskNumber = prompt("Введите номер задачи:");
+    taskNumber = prompt("Введите номер задачи (от 1 до 25):");
     taskNumber = checkOfNumber(taskNumber, "Вы ввели не число, введите число:");
     taskNumber = parseInt(taskNumber);
 
