@@ -1,50 +1,328 @@
+// 38. Дан массив с числами.Выведите последовательно его элементы используя рекурсию и не используя цикл.
+
+let mas = [];
+
+const setElements = () => {
+	for (let i = 0; i < 2; i++) {
+		mas.push(Math.ceil(Math.random() * 10));
+	}
+}
+
+setElements();
+
+const getElements = (index) => {
+
+	if (index < mas.length) {
+		return mas[index].toString() + '\n' + getElements(index + 1);
+	}
+	return "";
+}
+
+console.log(getElements(0));
+
+
+// let factRecourse = function innerFact(num) {
+// 	if (num <= 1) {
+// 		return 1;
+// 	}
+// 	return num * innerFact(num - 1);
+// }
+
+
+// Заполните массив следующим образом: в первый элемент запишите 'x', во второй 'xx', в третий 'xxx' и так далее.
+
+// let symb = prompt("Введите символ");
+// if(symb.length != 1) {
+//    alert("Только один символ!!!");
+// }
+// else {
+//    let setMas = symb => {
+//       let mas = [];
+//       let str = symb;
+
+//       for(let i = 0; i < 10; i++) {
+//          mas.push(str);
+//          str += symb;
+//       }
+//       return mas;
+//    }
+//    console.log(setMas(symb));
+// }
+
+// let factRecourse = function innerFact(num) {
+//    if(num <= 1) {
+//       return 1;
+//    }
+//    return num * innerFact(num - 1);
+// }
+
+// console.log(factRecourse(5));
+
+// let fact = num => {
+//    let result = 1;
+
+//    while(num >= 1) {
+//       result *= num;
+//       num--;
+//    }
+//    return result;
+// }
+
+// console.log(fact(5));
+
+
+// let num1 = 100;
+// let num2 = 200;
+
+// //Function Expression
+// let multiple = function(num1, num2) {
+//    return num1 * num2;
+// }
+
+// //() => {}
+// let getNumber = () => {
+//    return [num1, num2];
+// }
+
+//Function Declaration
+// function calcSum(num1, num2) {
+//    return num1 + num2;
+// }
+
+
+
+/*** МИНИ-КАЛЬКУЛЯТОР (начало) ***/
+// сложение 2-х чисел
+// разность 2-х чисел
+// произведение 2-х чисел
+// частное 2-х чисел
+// возведение числа в n-степень
+// корень n-й степени
+
+// let cancel = true; //пока true - пользователю выводится меню
+// let menu = `Ваш выбор (0-6):
+// 1. Сложение 2-х чисел
+// 2. Разность 2-х чисел
+// 3. Произведение 2-х чисел
+// 4. Деление 2-х чисел
+// 5. Возведение числа в n-ю степень
+// 6. Вычисление корня n-й степени
+// 0. Отмена`;
+
+// let result;
+// let params = [];
+
+// do {
+//    result = undefined;
+//    let operation = prompt(menu, "0"); //выбор пользователя (пункт меню)
+
+//    switch(operation) {
+//       case "1": params = getParametrs(operation);
+//                result = getResult(params, "+");            
+//                break;
+
+//       case "2": params = getParametrs(operation);
+//                result = getResult(params, "-");
+//                break;
+
+//       case "3": params = getParametrs(operation);
+//                result = getResult(params, "*");
+//                break;
+
+//       case "4": params = getParametrs(operation);
+//                result = getResult(params, "/");
+//                break;
+
+//       case "5": params = getParametrs(operation);
+//                result = getResult(params, "^");
+//                break;
+
+//       case "6": params = getParametrs(operation);
+//                result = getResult(params, "n");
+//                break;
+
+//       //отмена (закрытие меню)
+//       case "0": 
+//       case null: cancel = false;
+//                break;
+//       default:  result = "Ошибка! Неверный выбор!!!";
+//                break;
+//    }
+//    if(result){ 
+//       alert(result);
+//    }
+// } while(cancel);
+
+
+// //Задаёт параметры (вводимые значения)
+// function getParametrs(oper) {
+//    let str1, str2;
+
+//    if(oper >= 1 && oper <= 4) {
+//       str1 = "Первое число:";
+//       str2 = "Второе число:";
+//    }
+//    else if(oper == 5) {
+//       str1 = "Число:";
+//       str2 = "Степень:";
+//    }
+//    else {
+//       str1 = "Число:";
+//       str2 = "Степень корня:";
+//    }
+//    return checkParametrs(str1, str2); 
+// }
+
+// //Проверяет параметры
+// function checkParametrs(str1, str2) {
+//    let p1, p2; //параметры (вводимые пользователем значения)
+
+//    let cancel; //флаг для анализа выхода из цикла
+//                //когда значение false - выходим из цикла
+
+//    let exit = true; //флаг для выхода из внутреннего цикла
+//                     //когда значение false - выходим из цикла
+
+//    start:
+//    if(exit) {
+//       do {
+//          p1 = prompt(str1);
+//          cancel = checkP(p1); //проверка параметра на null,
+//                               //пустую строку или не число
+
+//          if(cancel == "undefined") {
+//             break;
+//          }
+//          //если первый параметр введён корректно (т.е. является числом)
+//          //т.е. cancel --> false
+//          if(!cancel) {
+//             do {
+//                p2 = prompt(str2);
+//                cancel = checkP(p2);
+
+//                if(cancel == "undefined") {
+//                   exit = false;
+//                   break start;
+//                }
+//             } while(cancel);
+//          }
+//       } while(cancel);
+//    }
+
+//    return [p1, p2];
+// }
+
+// //Проверяет параметр.
+// //Возвращает "undefined" или true (введена пустая строка или не число!)
+// //или false (введено число)
+// function checkP(param) {
+//    if(!param && typeof param == "object") {
+//       param = "undefined";
+//       return param;
+//    }
+//    if(param == "" || isNaN(+param)) {
+//       alert("Пустая строка или не число!");
+//       return true;
+//    }
+//    return false;
+// }
+
+// //Вычисляет результат и возвращает строку с ним
+// function getResult(params, oper) {
+//    let result;
+//    let p1 = params[0], p2 = params[1];
+
+//    if(!p1 && typeof p1 == "object" ||
+//       !p2 && typeof p2 == "object") {
+//       result = "Вы отменили ввод!";
+//    }
+//    else {
+//       p1 = +p1;
+//       p2 = +p2;
+
+//       switch(oper) {
+//          case "+": result = `Сумма чисел = ${p1 + p2}`;
+//                   break;
+
+//          case "-": result = `Разность чисел = ${p1 - p2}`;
+//                   break;
+
+//          case "*": result = `Произведение чисел = ${p1 * p2}`;
+//                   break;
+
+//          case "/": if(p2 != 0) {
+//                      if(Number.isInteger(p1 / p2)) {
+//                         result = `Частное 2-х чисел = ${(p1 / p2)}`;
+//                      }
+//                      else {
+//                         result = `Частное 2-х чисел = ${(p1 / p2).toFixed(4)}`;
+//                      }
+//                   }
+//                   else {
+//                      result = "Делить на 0 нельзя!";
+//                   }
+//                   break;
+
+//          case "^": if(p2 < 0) {
+//                      result = `Число ${p1} в степени ${p2} = ${(p1**p2).toFixed(4)}`;  
+//                   }
+//                   else {
+//                      result = `Число ${p1} в степени ${p2} = ${p1**p2}`;
+//                   }
+//                   break;
+
+//          case "n": if(Number.isInteger(p1**(1 / p2))) {
+//                      result = `Корень степени ${p2} из числа ${p1} = ${p1**(1 / p2)}`;
+//                    }
+//                    else {
+//                      result = `Корень степени ${p2} из числа ${p1} = ${(p1**(1 / p2)).toFixed(4)}`;
+//                    }  
+//                   break;
+//       }
+//    }
+//    return result;
+// }
+/*** МИНИ-КАЛЬКУЛЯТОР (конец) ***/
+
+
+
 /*** ОБЪЕКТЫ (начало) ***/
 // Литеральный способ создания объекта {}
-let button = {
-   id: "generateBtn",
-   text: "Купить",
-   class: "btn animate__animated",
-   isBorder: false
-};
+// let button = {
+//    id: "generateBtn",
+//    text: "Купить",
+//    class: "btn animate__animated",
+//    isBorder: false
+// };
 
-//select - селектор тега (типа)
-//.select - селектор класса
-//select option - контекстный селектор (селектор потомков)
-//.menu .item-menu - контекстный селектор (селектор потомков)
-//select > option - дочерний селектор
-//[type] - селектор по атрибуту
-//[type="checkbox"] - селектор по атрибуту
-//select + p - соседний селектор (найди p, который сразу за select)
-//select ~ p - соседи
+// let select = document.getElementById("variantsButton");
+// let div = document.querySelector(".buttons");
+// let btn;
 
-let select = document.getElementById("variantsButton");
-let div = document.querySelector(".buttons");
-let btn;
+// select.addEventListener("input", () => {
+//    if(document.getElementById(button.id)) {
+//       btn.className = `${button.class} ${select.value}`;
+//       btn.classList.add("animate__bounceIn");
 
-select.addEventListener("input", () => {
-   if(document.getElementById(button.id)) {
-      btn.className = `${button.class} ${select.value}`;
-      btn.classList.add("animate__bounceIn");
+//       setTimeout(()=>{
+//          btn.classList.remove("animate__bounceIn");
+//       }, 1000);
+//    }
+//    else {
+//       btn = document.createElement("button");
+//       btn.id = button.id;
+//       btn.textContent = button.text;
+//       btn.className = `${button.class} ${select.value}`;
 
-      setTimeout(()=>{
-         btn.classList.remove("animate__bounceIn");
-      }, 1000);
-   }
-   else {
-      btn = document.createElement("button");
-      btn.id = button.id;
-      btn.textContent = button.text;
-      btn.className = `${button.class} ${select.value}`;
+//       btn.classList.add("animate__backInDown");
 
-      btn.classList.add("animate__backInDown");
+//       setTimeout(() => {
+//          btn.classList.remove("animate__backInDown");
+//       }, 2000);
 
-      setTimeout(() => {
-         btn.classList.remove("animate__backInDown");
-      }, 2000);
-
-      div.insertAdjacentElement("afterend", btn);
-   }
-});
+//       div.insertAdjacentElement("afterend", btn);
+//    }
+// });
 
 
 // let btn = document.createElement("button");
@@ -170,7 +448,7 @@ select.addEventListener("input", () => {
 
 //   if(isArray) {
 //     let innerCount = +prompt("Кол-во элементов в массиве?");
-    
+
 //     matrix[i] = []; //элемент массива - сам является массивом
 
 //     for(let j = 0, elem = ""; j < innerCount; j++) {
@@ -207,94 +485,6 @@ select.addEventListener("input", () => {
 // console.log(JSON.stringify(matrix));
 
 /*** ПРИМЕР ЗАДАЧИ С ДВУМЕРНЫМ МАССИВОМ (конец) ***/
-
-
-
-/*** МИНИ-КАЛЬКУЛЯТОР (начало) ***/
-// сложение 2-х чисел
-// разность 2-х чисел
-// произведение 2-х чисел
-// частное 2-х чисел
-// возведение числа в n-степень
-// корень n-й степени
-
-// let cancel = true;
-// let menu = `Ваш выбор (0-6):
-// 1. Сложение 2-х чисел
-// 2. Разность 2-х чисел
-// 3. Произведение 2-х чисел
-// 4. Деление 2-х чисел
-// 5. Возведение числа в n-ю степень
-// 6. Вычисление корня n-й степени
-// 0. Отмена`;
-
-// let num1, num2;
-// let result; //сумма, разность, произведение...
-
-// do {
-//   let operation = prompt(menu, "0");
-
-//   switch(operation) {
-//     case "1": num1 = +prompt("Первое число:");
-//               num2 = +prompt("Второе число:");
-
-//               result = num1 + num2;
-//               alert(`Сумма чисел = ${result}`);
-//               break;
-//     case "2": num1 = prompt("Первое число:");
-//               num2 = prompt("Второе число:");
-
-//               result = num1 - num2;
-//               alert(`Разность чисел = ${result}`);
-//               break;
-//     case "3": num1 = prompt("Первое число:");
-//               num2 = prompt("Второе число:");
-
-//               result = num1 * num2;
-//               alert(`Произведение чисел = ${result}`);
-//               break;
-//     case "4": num1 = prompt("Первое число:");
-//               num2 = prompt("Второе число:");
-
-//               if(num2 != 0) {
-//                 result = num1 / num2;
-//                 alert(`Частное 2-х чисел = ${result.toFixed(2)}`);
-//               }
-//               else {
-//                 alert(`Делить на 0 нельзя!`);
-//               }
-//               break;
-//     case "5": num1 = prompt("Число:");
-//               num2 = prompt("Степень:");
-
-//               if(num2 < 0) {
-//                 result = Math.pow(num1, num2).toFixed(4);  
-//               }
-//               else {
-//                 // result = num1**num2;
-//                 result = Math.pow(num1, num2);
-//               }
-
-//               alert(`Число ${num1} в степени ${num2} = ${result}`);
-//               break;
-//     case "6": num1 = prompt("Число:");
-//               num2 = prompt("Степень корня:");
-
-//               result = Math.pow(num1, 1 / num2);
-//               alert(`Корень степени ${num2} из числа ${num1} = ${result}`);
-
-//               break;
-
-//     //отмена (закрытие меню)
-//     case "0": 
-//     case null: cancel = false;
-//               break;
-//     default:  alert("Ошибка! Неверный выбор!!!");
-//               break;
-//   }
-// } while(cancel);
-
-/*** МИНИ-КАЛЬКУЛЯТОР (конец) ***/
 
 
 
