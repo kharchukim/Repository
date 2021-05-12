@@ -107,3 +107,95 @@
 
 	font-size: 15px;
 }
+
+:focus {
+	outline: 1px solid gold;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+form {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+
+	width: 425px;
+	margin: auto 25px;
+	padding: 20px;
+
+	border-radius: 10px;
+	color: white;
+	background-color: rgb(48, 45, 45);
+}
+
+form>div {
+	display: flex;
+}
+
+form label {
+	margin-bottom: 5px;
+
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1.1px;
+	color: rgb(167, 164, 164);
+}
+
+[type="text"],
+[type="password"],
+.comments {
+	margin-bottom: 10px;
+	padding: 3px 5px;
+	font-size: 14px;
+	color: darkblue;
+}
+
+.comments {
+	min-height: 75px;
+}
+
+.form-fields {
+	flex-direction: column;
+}
+
+.form-buttons {
+	align-self: center;
+	justify-content: space-between;
+	align-items: center;
+
+	width: 47%;
+	margin-top: 5px;
+}
+
+.form-btn {
+	padding: 7px 10px;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	border: none;
+	color: rgb(253, 246, 203);
+	box-shadow: 0 0 2px gold;
+
+	transition: all 0.5s;
+}
+
+.btn-submit {
+	background-color: rgb(0, 51, 0);
+}
+
+.btn-reset {
+	background-color: rgb(77, 0, 0);
+}
+
+.form-btn:hover {
+	cursor: pointer;
+	background-color: rgb(214, 214, 214);
+	color: rgb(53, 53, 53);
+}
+
+.form-btn:active {
+	background-color: rgb(75, 75, 75);
+	color: rgb(201, 200, 200);
+}

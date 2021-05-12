@@ -1,3 +1,60 @@
+const form = document.forms.form;
+
+const btnSubmit = form.elements.submit;
+const btnReset = form.elements.reset;
+
+btnSubmit.addEventListener("click", submit);
+btnReset.addEventListener("click", clear);
+
+function submit(e) {
+  e.preventDefault();
+
+  const login = form.elements.login;
+  const pass = form.elements.pswd;
+  const comments = form.elements.comments;
+
+  if (login.value.length >= 6 && pass.value.length >= 6) {
+    if (!document.getElementById("answer")) {
+      const p = document.createElement("p");
+      p.id = "answer";
+      p.innerHTML = `Логин пользователя: ${login.value}<br>
+										Пароль: ${pass.value}`;
+      form.insertAdjacentElement("afterend", p);
+    } else {
+      document.getElementById(
+        "answer"
+      ).innerHTML = `Логин пользователя: ${login.value}<br>
+										Пароль: ${pass.value}`;
+    }
+  }
+  if (comments.value != "") {
+    document.getElementById(
+      "answer"
+    ).innerHTML += `<br>Комментарий: ${comments.value}`;
+  }
+}
+
+function clear(e) {
+  e.preventDefault();
+
+  for (let field of form) {
+    if (
+      !(
+        field.getAttribute("type") == "submit" ||
+        field.getAttribute("type") == "reset"
+      )
+    ) {
+      field.value = "";
+    }
+  }
+
+  if (document.getElementById("answer")) {
+    document.getElementById("answer").remove();
+  }
+}
+
+// console.dir(btnSubmit);
+
 // Заголовок
 // const title = document.createElement("h1");
 // title.style.color = "#f00f0f";
@@ -19,54 +76,53 @@
 document.getElementById("btn").addEventListener("click", createImage);
 
 function createImage() {
-	if (!document.getElementById("image")) {
-		const img = document.createElement("img");
-		img.id = "image";
-		img.alt = "Фото";
-		img.src = "../img/logo.svg";
-		img.className = "image";
+  if (!document.getElementById("image")) {
+    const img = document.createElement("img");
+    img.id = "image";
+    img.alt = "Фото";
+    img.src = "/438/img/logo.svg";
+    img.className = "image";
 
-		setTimeout(() => {
-			document.getElementById("btn").insertAdjacentElement("afterend", img);
-			document.getElementById("btn").textContent = "Скрыть картинку";
-		}, 500);
+    setTimeout(() => {
+      document.getElementById("btn").insertAdjacentElement("afterend", img);
+      document.getElementById("btn").textContent = "Скрыть картинку";
+    }, 500);
 
-		// Клик по картинке
-		img.addEventListener("click", showMessage);
-	} else {
-		setTimeout(() => {
-			document.getElementById("image").remove();
-			if (document.getElementById("message")) {
+    // Клик по картинке
+    img.addEventListener("click", showMessage);
+  } else {
+    setTimeout(() => {
+      document.getElementById("image").remove();
+      if (document.getElementById("message")) {
+        document
+          .getElementById("message")
+          .classList.remove("animate__rotateIn");
+        document.getElementById("message").classList.add("animate__rotateOut");
 
-				document.getElementById("message").classList.remove("animate__rotateIn");
-				document.getElementById("message").classList.add("animate__rotateOut");
-
-				setTimeout(() => {
-					document.getElementById("message").remove();
-				}, 1000);
-			}
-			document.getElementById("btn").textContent = "Показать картинку";
-		}, 500);
-	}
+        setTimeout(() => {
+          document.getElementById("message").remove();
+        }, 1000);
+      }
+      document.getElementById("btn").textContent = "Показать картинку";
+    }, 500);
+  }
 }
 
 function showMessage(e) {
-	const src = e.target.src;
+  const src = e.target.src;
 
-	if (!document.getElementById("message")) {
-		const div = document.createElement("div");
-		div.id = "message";
-		div.classList.add("message", "animate__animated", "animate__rotateIn");
+  if (!document.getElementById("message")) {
+    const div = document.createElement("div");
+    div.id = "message";
+    div.classList.add("message", "animate__animated", "animate__rotateIn");
 
-		const p = document.createElement("p");
-		p.innerHTML = `Адрес картинки: <strong>${src}</strong>`;
-		div.insertAdjacentElement("beforeend", p);
+    const p = document.createElement("p");
+    p.innerHTML = `Адрес картинки: <strong>${src}</strong>`;
+    div.insertAdjacentElement("beforeend", p);
 
-		document.getElementById("image").insertAdjacentElement("afterend", div);
-	}
+    document.getElementById("image").insertAdjacentElement("afterend", div);
+  }
 }
-
-
 
 // 38. Дан массив с числами.Выведите последовательно его элементы используя рекурсию и не используя цикл.
 
@@ -90,14 +146,12 @@ function showMessage(e) {
 
 // console.log(getElements(0));
 
-
 // let factRecourse = function innerFact(num) {
 // 	if (num <= 1) {
 // 		return 1;
 // 	}
 // 	return num * innerFact(num - 1);
 // }
-
 
 // Заполните массив следующим образом: в первый элемент запишите 'x', во второй 'xx', в третий 'xxx' и так далее.
 
@@ -140,7 +194,6 @@ function showMessage(e) {
 
 // console.log(fact(5));
 
-
 // let num1 = 100;
 // let num2 = 200;
 
@@ -158,8 +211,6 @@ function showMessage(e) {
 // function calcSum(num1, num2) {
 //    return num1 + num2;
 // }
-
-
 
 /*** МИНИ-КАЛЬКУЛЯТОР (начало) ***/
 // сложение 2-х чисел
@@ -188,7 +239,7 @@ function showMessage(e) {
 
 //    switch(operation) {
 //       case "1": params = getParametrs(operation);
-//                result = getResult(params, "+");            
+//                result = getResult(params, "+");
 //                break;
 
 //       case "2": params = getParametrs(operation);
@@ -212,17 +263,16 @@ function showMessage(e) {
 //                break;
 
 //       //отмена (закрытие меню)
-//       case "0": 
+//       case "0":
 //       case null: cancel = false;
 //                break;
 //       default:  result = "Ошибка! Неверный выбор!!!";
 //                break;
 //    }
-//    if(result){ 
+//    if(result){
 //       alert(result);
 //    }
 // } while(cancel);
-
 
 // //Задаёт параметры (вводимые значения)
 // function getParametrs(oper) {
@@ -240,7 +290,7 @@ function showMessage(e) {
 //       str1 = "Число:";
 //       str2 = "Степень корня:";
 //    }
-//    return checkParametrs(str1, str2); 
+//    return checkParametrs(str1, str2);
 // }
 
 // //Проверяет параметры
@@ -334,7 +384,7 @@ function showMessage(e) {
 //                   break;
 
 //          case "^": if(p2 < 0) {
-//                      result = `Число ${p1} в степени ${p2} = ${(p1**p2).toFixed(4)}`;  
+//                      result = `Число ${p1} в степени ${p2} = ${(p1**p2).toFixed(4)}`;
 //                   }
 //                   else {
 //                      result = `Число ${p1} в степени ${p2} = ${p1**p2}`;
@@ -346,15 +396,13 @@ function showMessage(e) {
 //                    }
 //                    else {
 //                      result = `Корень степени ${p2} из числа ${p1} = ${(p1**(1 / p2)).toFixed(4)}`;
-//                    }  
+//                    }
 //                   break;
 //       }
 //    }
 //    return result;
 // }
 /*** МИНИ-КАЛЬКУЛЯТОР (конец) ***/
-
-
 
 /*** ОБЪЕКТЫ (начало) ***/
 // Литеральный способ создания объекта {}
@@ -394,12 +442,11 @@ function showMessage(e) {
 //    }
 // });
 
-
 // let btn = document.createElement("button");
 // btn.textContent = button.text;
 // btn.classList.add(button.class, "btn-big");
 
-// if(button.isBorder) {   
+// if(button.isBorder) {
 //    btn.style.border = "2px solid red";
 // }
 // else {
@@ -408,13 +455,9 @@ function showMessage(e) {
 
 // document.body.prepend(btn);
 
-
 //string, number, boolean, Array, Object, Function
 
-
 /*** ОБЪЕКТЫ (конец) ***/
-
-
 
 // Примитивные типы данных
 //string "123"
@@ -426,7 +469,6 @@ function showMessage(e) {
 
 //Сложные типы данных
 //object ==> массивы, объекты, функции
-
 
 /*** ИНКРЕМЕНТ И ДЕКРЕМЕНТ (начало) ***/
 // инкремент
@@ -452,8 +494,6 @@ function showMessage(e) {
 
 /*** ИНКРЕМЕНТ И ДЕКРЕМЕНТ (конец) ***/
 
-
-
 /*** МЕТОДЫ МАССИВА
 1) push / unshift - добавление эл-та(ов) в конец/начало массива
 2) pop / shift - удаление последнего/первого элемента в массиве
@@ -466,8 +506,6 @@ function showMessage(e) {
    splice(-3, 3) - удаляет 3 элемента с конца
    splice(0, 3, 1000, 2000) - удаляет 3 элемента с начала и вставляет 2 новых (1000 и 2000)
 ***/
-
-
 
 /*** ПРИМЕР АССОЦИАТИВНОГО МАССИВА (начало) ***/
 // let assocMas = new Map([
@@ -505,8 +543,6 @@ function showMessage(e) {
 // );
 
 /*** ПРИМЕР АССОЦИАТИВНОГО МАССИВА (конец) ***/
-
-
 
 /*** ПРИМЕР ЗАДАЧИ С ДВУМЕРНЫМ МАССИВОМ (начало) ***/
 // let matrix = [];
@@ -556,8 +592,6 @@ function showMessage(e) {
 
 /*** ПРИМЕР ЗАДАЧИ С ДВУМЕРНЫМ МАССИВОМ (конец) ***/
 
-
-
 /*** ЗАДАЧА 3 (начало) ***/
 // Пользователь вводит сумму вклада и процент, который будет начисляться ежегодно.
 // Отобразить размер вклада поочередно на ближайшие 5 лет.
@@ -598,8 +632,6 @@ function showMessage(e) {
 
 /*** ЗАДАЧА 3 (конец) ***/
 
-
-
 /*** ЗАДАЧА 2 (начало) ***/
 // Пользователь вводит длину оснований трапеции (a и b), а также высоту трапеции h.
 // Программа выводит сообщение: «Площадь трапеции будет равна <значение>». Площадь
@@ -624,8 +656,6 @@ function showMessage(e) {
 // alert(result);
 
 /*** ЗАДАЧА 2 (конец) ***/
-
-
 
 /*** ЗАДАЧА 1 (начало) ***/
 // Программа хранит в двух переменных курс доллара и евро. В первой переменной у вас
