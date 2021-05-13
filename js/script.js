@@ -1,103 +1,266 @@
+const formUsers = document.forms.formUsers;
+const fldCountUsers = formUsers.elements.countUsers;
+const fldUserName = formUsers.elements.userName;
+const fldLogin = formUsers.elements.login;
+const fldStatus = formUsers.elements.status;
+const btnAddUser = formUsers.elements.addUser;
+const btnClear = formUsers.elements.clear;
+
+let userName, login;
+
+fldCountUsers.addEventListener("input", () => {
+  if (+fldCountUsers.value != 0) {
+    fldUserName.removeAttribute("disabled");
+  } else {
+    fldUserName.setAttribute("disabled", "");
+  }
+});
+
+fldUserName.addEventListener("input", () => {
+  userName = fldUserName.value.trim();
+
+  if (userName != "") {
+    fldLogin.removeAttribute("disabled");
+    btnClear.removeAttribute("disabled");
+  } else {
+    fldLogin.setAttribute("disabled", "");
+  }
+});
+
+fldLogin.addEventListener("input", () => {
+  login = fldLogin.value.trim();
+
+  if (login != "") {
+    fldStatus.removeAttribute("disabled");
+    btnAddUser.removeAttribute("disabled");
+  } else {
+    fldStatus.setAttribute("disabled", "");
+  }
+});
+
+btnClear.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  for (let field of formUsers) {
+    if (field != formUsers.elements.countUsers) {
+      // field.value = "";
+      field.setAttribute("disabled", "disabled");
+    }
+  }
+});
+
+// console.log(btnAddUser);
+class User {
+  //name, login, isAdmin - формальные параметры
+
+  static MAX_COUNT_USERS = 3; //максимально возможное число пользователей
+  static #countUsers = 0; //кол-во пользователей
+
+  #name;
+  #login;
+  #status;
+
+  constructor(name, login, status) {
+    User.#countUsers++;
+
+    if (User.#countUsers > User.MAX_COUNT_USERS) {
+      console.log("Невозможно создать нового пользователя!");
+    } else {
+      this.#name = name;
+      this.#login = login;
+      this.#status = status;
+    }
+  }
+
+  get Name() {
+    return this.#name;
+  }
+  set Name(value) {
+    if (typeof value == "string" && value.length >= 3 && value.length <= 20) {
+      this.#name = value;
+    } else {
+      console.log(
+        "Значение имени должно быть строковым и соотвествовать определённому кол-ву символов!"
+      );
+    }
+  }
+
+  get Login() {
+    return this.#login;
+  }
+  set Login(value) {
+    if (typeof value == "string") {
+      this.#login = value;
+    } else {
+      console.log("Значение логина должно быть строковым!");
+    }
+  }
+
+  get Status() {
+    return this.#status;
+  }
+  set Status(value) {
+    if (typeof value == "string") {
+      this.#status = value;
+    } else {
+      console.log("Значение должно быть строкового типа!");
+    }
+  }
+
+  getUserInfo() {
+    let str = "Информация о пользователе:".toUpperCase() + "\n";
+
+    str += `Имя: ${this.Name}\n`;
+    str += `Логин: ${this.Login}\n`;
+
+    if (this.Status == "admin") {
+      str += `Является админом!`;
+    } else {
+      str += `Обычный пользователь :(`;
+    }
+
+    return str;
+  }
+
+  changeUserName() {
+    this.Name = prompt("Новое имя:");
+    return this.getUserInfo();
+  }
+}
+
+let users = []; // массив пользователей (объектов)
+// const countUsers = +prompt(
+//   `Кол-во пользователей (до ${User.MAX_COUNT_USERS}):`
+// );
+
+// if (countUsers > User.MAX_COUNT_USERS) {
+//   alert("Слишком много пользователей!");
+// } else {
+//   createUsers();
+// }
+
+function createUsers() {
+  let userName, login, status;
+
+  for (let i = 0; i < countUsers; i++) {
+    userName = prompt(`Имя ${i + 1}-пользователя:`);
+    if (userName == "") {
+      userName = "Гость";
+    }
+
+    login = prompt("Логин:");
+    if (login == "") {
+      login = "guest";
+    }
+
+    status = confirm("Пользователь с правами администратора?");
+
+    //создание нового объекта (пользователя) и добавление в массив users
+    users[i] = new User(userName, login, status);
+  }
+}
+
+function getInfoUsers() {
+  for (let user of users) {
+    console.log(user.getUserInfo());
+  }
+}
+
+// getInfoUsers();
+
 /*** ОБЪЕКТЫ (начало) ***/
-// Литеральный способ создания объекта {}
-// let button = {
-//   id: "generateBtn",
-//   text: "Купить",
-//   class: "btn animate__animated",
-//   isBorder: false,
+
+// function Button(id, styles, name, types) {
+//   this.id = id;
+//   this.text = name;
+//   this.defaultStyles = {};
+//   this.btnStyles = {};
+
+//   // Формирование дефолтных свойств (для всех кнопок)
+
+//   for (let key in styles) {
+//     this.defaultStyles[key] = styles[key];
+//   }
+
+//   // Формирование индивидуальных свойств (у каждой кнопки свои!)
+//   for (let key in types) {
+//     if (key == this.id) {
+//       for (let prop in types[key]) {
+//         this.btnStyles = types[key];
+//       }
+//     }
+//   }
+
+//   // Создание кнопки (объекта DOM)
+//   this.create = function () {
+//     let btn = document.createElement("button"); //создание тега button
+//     btn.id = this.id; //задаём атрибут id из св-ва объекта
+
+//     // задаём общие свойства для кнопки
+//     // key - имя свойства
+//     // this.defaultStyles - свойство (объект) со стилями по умолчанию
+//     for (let key in this.defaultStyles) {
+//       btn.style[key] = this.defaultStyles[key];
+//     }
+
+//     // задаём индивидуальные свойства для кнопки
+//     // key - имя свойства
+//     // this.btnStyles - свойство (объект) со индивидуальными свойствами
+//     for (let key in this.btnStyles) {
+//       btn.style[key] = this.btnStyles[key];
+//     }
+
+//     btn.textContent = this.text; // задаём текст на кнопке
+//     document.body.insertAdjacentElement("afterbegin", btn); // добавляем в начало body
+//   };
+// }
+
+// // массив с id кнопок
+// const ids = ["buy", "more", "read", "link"];
+
+// // объект с общими CSS-свойствами кнопок
+// const defaultStyles = {
+//   color: "white",
+//   padding: "10px 15px",
+//   fontSize: "14px",
+//   marginRight: "15px",
 // };
 
-function Button(id, styles, name, types) {
-  this.id = id;
-  this.text = name;
-  this.defaultStyles = {};
-  this.btnStyles = {};
+// // объект с разновидностями кнопок - содержит индивидуальные CSS-свойства
+// const typeButtons = {
+//   buy: {
+//     backgroundColor: "darkred",
+//     boxShadow: "0 0 5px 0 red",
+//   },
+//   more: {
+//     backgroundColor: "darkblue",
+//     border: "2px solid gold",
+//   },
+//   read: {
+//     backgroundColor: "darkgreen",
+//     transform: "scale(1.1)",
+//   },
+//   link: {
+//     textDecoration: "underline",
+//     backgroundColor: "transparent",
+//     padding: "0",
+//     color: "red",
+//     border: "none",
+//   },
+// };
 
-  // Формирование дефолтных свойств (для всех кнопок)
+// // массив с названиями кнопок
+// const namesButton = ["Купить", "Подробнее", "Читать", "Перейти на Яндекс"];
+// // массив для хранения объектов (кнопок)
+// let buttons = [];
 
-  for (let key in styles) {
-    this.defaultStyles[key] = styles[key];
-  }
+// for (let i = 0; i < namesButton.length; i++) {
+//   buttons[i] = new Button(ids[i], defaultStyles, namesButton[i], typeButtons);
+// }
 
-  // Формирование индивидуальных свойств (у каждой кнопки свои!)
-  for (let key in types) {
-    if (key == this.id) {
-      for (let prop in types[key]) {
-        this.btnStyles = types[key];
-      }
-    }
-  }
-
-  // Создание кнопки (объекта DOM)
-  this.create = function () {
-    let btn = document.createElement("button"); //создание тега button
-    btn.id = this.id; //задаём атрибут id из св-ва объекта
-
-    // задаём общие свойства для кнопки
-    // key - имя свойства
-    // this.defaultStyles - свойство (объект) со стилями по умолчанию
-    for (let key in this.defaultStyles) {
-      btn.style[key] = this.defaultStyles[key];
-    }
-
-    // задаём индивидуальные свойства для кнопки
-    // key - имя свойства
-    // this.btnStyles - свойство (объект) со индивидуальными свойствами
-    for (let key in this.btnStyles) {
-      btn.style[key] = this.btnStyles[key];
-    }
-
-    btn.textContent = this.text; // задаём текст на кнопке
-    document.body.insertAdjacentElement("afterbegin", btn); // добавляем в начало body
-  };
-}
-
-// массив с id кнопок
-const ids = ["buy", "more", "read", "link"];
-
-// объект с общими CSS-свойствами кнопок
-const defaultStyles = {
-  color: "white",
-  padding: "10px 15px",
-  fontSize: "14px",
-  marginRight: "15px",
-};
-
-// объект с разновидностями кнопок - содержит индивидуальные CSS-свойства
-const typeButtons = {
-  buy: {
-    backgroundColor: "darkred",
-    boxShadow: "0 0 5px 0 red",
-  },
-  more: {
-    backgroundColor: "darkblue",
-    border: "2px solid gold",
-  },
-  read: {
-    backgroundColor: "darkgreen",
-    transform: "scale(1.1)",
-  },
-  link: {
-    textDecoration: "underline",
-    backgroundColor: "transparent",
-    padding: "0",
-    color: "red",
-    border: "none",
-  },
-};
-
-// массив с названиями кнопок
-const namesButton = ["Купить", "Подробнее", "Читать", "Перейти на Яндекс"];
-// массив для хранения объектов (кнопок)
-let buttons = [];
-
-for (let i = 0; i < namesButton.length; i++) {
-  buttons[i] = new Button(ids[i], defaultStyles, namesButton[i], typeButtons);
-}
-
-for (let key in buttons) {
-  buttons[key].create();
-}
+// for (let key in buttons) {
+//   buttons[key].create();
+// }
 
 // let select = document.getElementById("variantsButton");
 // let div = document.querySelector(".buttons");

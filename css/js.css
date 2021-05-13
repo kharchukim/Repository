@@ -130,6 +130,11 @@ form {
 	background-color: rgb(48, 45, 45);
 }
 
+[disabled] {
+	background-color: gray !important;
+	color: rgb(66, 65, 65) !important;
+}
+
 form>div {
 	display: flex;
 }
@@ -143,8 +148,10 @@ form label {
 	color: rgb(167, 164, 164);
 }
 
+[type="number"],
 [type="text"],
 [type="password"],
+select,
 .comments {
 	margin-bottom: 10px;
 	padding: 3px 5px;
@@ -189,7 +196,7 @@ form label {
 	background-color: rgb(77, 0, 0);
 }
 
-.form-btn:hover {
+.form-btn:hover:not[disabled] {
 	cursor: pointer;
 	background-color: rgb(214, 214, 214);
 	color: rgb(53, 53, 53);
