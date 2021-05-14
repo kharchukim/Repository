@@ -6,8 +6,12 @@ const fldStatus = formUsers.elements.status;
 const btnAddUser = formUsers.elements.addUser;
 const btnClear = formUsers.elements.clear;
 
-let userName, login;
+let userName,
+  login,
+  status = fldStatus.value,
+  countUsers;
 
+// обработчик события ввода значения в поле Кол-во пользователей
 fldCountUsers.addEventListener("input", () => {
   if (+fldCountUsers.value != 0) {
     fldUserName.removeAttribute("disabled");
@@ -16,6 +20,7 @@ fldCountUsers.addEventListener("input", () => {
   }
 });
 
+// обработчик события ввода значения в поле Имя пользователя
 fldUserName.addEventListener("input", () => {
   userName = fldUserName.value.trim();
 
@@ -27,6 +32,7 @@ fldUserName.addEventListener("input", () => {
   }
 });
 
+// обработчик события ввода значения в поле Логин
 fldLogin.addEventListener("input", () => {
   login = fldLogin.value.trim();
 
@@ -38,18 +44,62 @@ fldLogin.addEventListener("input", () => {
   }
 });
 
-btnClear.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  for (let field of formUsers) {
-    if (field != formUsers.elements.countUsers) {
-      // field.value = "";
-      field.setAttribute("disabled", "disabled");
-    }
-  }
+fldStatus.addEventListener("change", () => {
+  status = fldStatus.value;
 });
 
-// console.log(btnAddUser);
+// обработчик кнопки очистки
+btnClear.addEventListener("click", (e) => {
+  // e.preventDefault();
+  // for (let field of formUsers) {
+  //   if (field != fldCountUsers) {
+  //     if (field != btnAddUser && field != btnClear && field != fldStatus) {
+  //       field.value = "";
+  //     }
+  //     field.setAttribute("disabled", "disabled");
+  //   } else {
+  //     fldCountUsers.value = 0;
+  //     fldStatus.options.selectedIndex = 0;
+  //   }
+  // }
+});
+
+function clearFields(e) {
+  e.preventDefault();
+  for (let field of formUsers) {
+    if (field != fldCountUsers) {
+      if (field != btnAddUser && field != btnClear && field != fldStatus) {
+        field.value = "";
+      }
+      field.setAttribute("disabled", "disabled");
+    } else {
+      fldCountUsers.value = 0;
+      fldStatus.options.selectedIndex = 0;
+    }
+  }
+}
+
+// обработчик кнопки добавить
+btnAddUser.addEventListener("click", (e) => {
+  let user;
+  countUsers = +fldCountUsers.value;
+
+  user = new User(userName, login, status);
+  fldCountUsers.value = --countUsers;
+
+  fldUserName.value = "";
+  fldLogin.value = "";
+  fldStatus.options.selectedIndex = 0;
+
+  if (countUsers == 0) {
+    fldCountUsers.removeAttribute("disabled");
+    clearFields(e);
+  }
+
+  fldCountUsers.setAttribute("disabled", "disabled");
+  console.log(user);
+});
+
 class User {
   //name, login, isAdmin - формальные параметры
 
@@ -128,36 +178,30 @@ class User {
   }
 }
 
-let users = []; // массив пользователей (объектов)
-// const countUsers = +prompt(
-//   `Кол-во пользователей (до ${User.MAX_COUNT_USERS}):`
-// );
-
 // if (countUsers > User.MAX_COUNT_USERS) {
 //   alert("Слишком много пользователей!");
-// } else {
-//   createUsers();
 // }
 
-function createUsers() {
-  let userName, login, status;
+function createUsers(countUsers, userName, login, status) {
+  let users = []; // массив пользователей (объектов)
 
   for (let i = 0; i < countUsers; i++) {
-    userName = prompt(`Имя ${i + 1}-пользователя:`);
-    if (userName == "") {
-      userName = "Гость";
-    }
+    users[i] = new User(userName, login, status);
+    // userName = prompt(`Имя ${i + 1}-пользователя:`);
+    // if (userName == "") {
+    //   userName = "Гость";
+    // }
 
-    login = prompt("Логин:");
-    if (login == "") {
-      login = "guest";
-    }
+    // login = prompt("Логин:");
+    // if (login == "") {
+    //   login = "guest";
+    // }
 
-    status = confirm("Пользователь с правами администратора?");
+    // status = confirm("Пользователь с правами администратора?");
 
     //создание нового объекта (пользователя) и добавление в массив users
-    users[i] = new User(userName, login, status);
   }
+  console.log(users);
 }
 
 function getInfoUsers() {
