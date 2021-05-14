@@ -11,59 +11,111 @@ let userName,
   status = fldStatus.value,
   countUsers;
 
-// обработчик события ввода значения в поле Кол-во пользователей
-fldCountUsers.addEventListener("input", () => {
-  if (+fldCountUsers.value != 0) {
-    fldUserName.removeAttribute("disabled");
-  } else {
-    fldUserName.setAttribute("disabled", "");
+let users = []; // массив пользователей (объектов)
+
+// установка контекста работы функции setAccessFields
+let accessFldUserName = setAccessFields.bind(fldCountUsers); // контестом является объект fldCountUserd
+let accessFldLogin = setAccessFields.bind(fldUserName); // контестом является объект fldUserName
+let accessFldStatus = setAccessFields.bind(fldLogin); // контестом является объект fldLogin
+
+// обработчики события ввода значения в поля: "Кол-во пользователей", "Имя пользователя" и "Логин"
+fldCountUsers.addEventListener("input", accessFldUserName);
+fldUserName.addEventListener("input", accessFldLogin);
+fldLogin.addEventListener("input", accessFldStatus);
+
+// обработчик события выбора из выпадающего списка "Статус"
+fldStatus.addEventListener("change", () => (status = fldStatus.value));
+
+// обработчики кнопки "Добавить" и "Очистить"
+btnAddUser.addEventListener("click", (e) => addUsers(e));
+btnClear.addEventListener("click", (e) => clearFields(e));
+
+// обработчик нажатия клавиши Enter для добавления пользователя
+window.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    if (
+      +fldCountUsers.value != 0 &&
+      fldUserName.value != "" &&
+      fldLogin.value != ""
+    ) {
+      addUsers(e);
+    }
   }
 });
 
-// обработчик события ввода значения в поле Имя пользователя
-fldUserName.addEventListener("input", () => {
-  userName = fldUserName.value.trim();
-
-  if (userName != "") {
-    fldLogin.removeAttribute("disabled");
-    btnClear.removeAttribute("disabled");
-  } else {
-    fldLogin.setAttribute("disabled", "");
+// обработчик нажатия клавиши Escape для очистки полей формы
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    clearFields(e);
   }
 });
 
-// обработчик события ввода значения в поле Логин
-fldLogin.addEventListener("input", () => {
-  login = fldLogin.value.trim();
+function addUsers(e) {
+  countUsers = +fldCountUsers.value; // кол-во пользователей
+  userName = fldUserName.value; // имя пользователя
+  login = fldLogin.value; // логин
 
-  if (login != "") {
-    fldStatus.removeAttribute("disabled");
-    btnAddUser.removeAttribute("disabled");
-  } else {
-    fldStatus.setAttribute("disabled", "");
+  createUser(userName, login, status);
+
+  fldCountUsers.value = --countUsers;
+
+  fldUserName.value = "";
+  fldUserName.focus();
+  fldLogin.value = "";
+  fldStatus.options.selectedIndex = 0;
+
+  if (countUsers == 0) {
+    clearFields(e);
+    // getInfoUsers();
   }
-});
+}
 
-fldStatus.addEventListener("change", () => {
-  status = fldStatus.value;
-});
+// Функция создания объекта user (пользователь) и добавление его в массив "users"
+function createUser(name, login, status) {
+  let user; // пользователь (объект)
+  user = new User(name, login, status);
 
-// обработчик кнопки очистки
-btnClear.addEventListener("click", (e) => {
-  // e.preventDefault();
-  // for (let field of formUsers) {
-  //   if (field != fldCountUsers) {
-  //     if (field != btnAddUser && field != btnClear && field != fldStatus) {
-  //       field.value = "";
-  //     }
-  //     field.setAttribute("disabled", "disabled");
-  //   } else {
-  //     fldCountUsers.value = 0;
-  //     fldStatus.options.selectedIndex = 0;
-  //   }
-  // }
-});
+  users.push(user);
+}
 
+// Функция разблокировки/блокировки полей (логин и статус)
+// this - является объектом fldUserName или fldLogin в зависимости от привязки, заданной в методе bind
+function setAccessFields(e) {
+  let fldVal = this.value.trim();
+
+  switch (this.name) {
+    case "countUsers":
+      +this.value != 0
+        ? fldUserName.removeAttribute("disabled")
+        : clearFields(e);
+      break;
+    case "userName":
+      if (fldVal != "") {
+        fldLogin.removeAttribute("disabled");
+        btnClear.removeAttribute("disabled");
+      } else {
+        if (fldLogin.value != "") {
+          fldLogin.value = "";
+        }
+        fldLogin.setAttribute("disabled", "");
+        fldStatus.setAttribute("disabled", "");
+        btnClear.setAttribute("disabled", "");
+        btnAddUser.setAttribute("disabled", "");
+      }
+      break;
+    case "login":
+      if (fldVal != "") {
+        fldStatus.removeAttribute("disabled");
+        btnAddUser.removeAttribute("disabled");
+      } else {
+        fldStatus.setAttribute("disabled", "");
+        btnAddUser.setAttribute("disabled", "");
+      }
+      break;
+  }
+}
+
+// Функция очистки полей формы
 function clearFields(e) {
   e.preventDefault();
   for (let field of formUsers) {
@@ -79,31 +131,16 @@ function clearFields(e) {
   }
 }
 
-// обработчик кнопки добавить
-btnAddUser.addEventListener("click", (e) => {
-  let user;
-  countUsers = +fldCountUsers.value;
-
-  user = new User(userName, login, status);
-  fldCountUsers.value = --countUsers;
-
-  fldUserName.value = "";
-  fldLogin.value = "";
-  fldStatus.options.selectedIndex = 0;
-
-  if (countUsers == 0) {
-    fldCountUsers.removeAttribute("disabled");
-    clearFields(e);
+function getInfoUsers() {
+  for (let user of users) {
+    console.log(user.getUserInfo());
   }
-
-  fldCountUsers.setAttribute("disabled", "disabled");
-  console.log(user);
-});
+}
 
 class User {
   //name, login, isAdmin - формальные параметры
 
-  static MAX_COUNT_USERS = 3; //максимально возможное число пользователей
+  static MAX_COUNT_USERS = 5; //максимально возможное число пользователей
   static #countUsers = 0; //кол-во пользователей
 
   #name;
@@ -114,7 +151,8 @@ class User {
     User.#countUsers++;
 
     if (User.#countUsers > User.MAX_COUNT_USERS) {
-      console.log("Невозможно создать нового пользователя!");
+      console.log("Превышение числа пользователей!");
+      // throw false;
     } else {
       this.#name = name;
       this.#login = login;
@@ -177,40 +215,6 @@ class User {
     return this.getUserInfo();
   }
 }
-
-// if (countUsers > User.MAX_COUNT_USERS) {
-//   alert("Слишком много пользователей!");
-// }
-
-function createUsers(countUsers, userName, login, status) {
-  let users = []; // массив пользователей (объектов)
-
-  for (let i = 0; i < countUsers; i++) {
-    users[i] = new User(userName, login, status);
-    // userName = prompt(`Имя ${i + 1}-пользователя:`);
-    // if (userName == "") {
-    //   userName = "Гость";
-    // }
-
-    // login = prompt("Логин:");
-    // if (login == "") {
-    //   login = "guest";
-    // }
-
-    // status = confirm("Пользователь с правами администратора?");
-
-    //создание нового объекта (пользователя) и добавление в массив users
-  }
-  console.log(users);
-}
-
-function getInfoUsers() {
-  for (let user of users) {
-    console.log(user.getUserInfo());
-  }
-}
-
-// getInfoUsers();
 
 /*** ОБЪЕКТЫ (начало) ***/
 
