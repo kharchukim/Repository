@@ -1,0 +1,14 @@
+.task-choise {
+   color: rgb(75, 63, 128);
+   font-family: 'Poppins', sans-serif;
+}
+
+.task div {
+    padding: 5px;
+    margin: 3px;
+    text-align: center;
+    background-color: #ddd;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(96, 68, 122);
+}

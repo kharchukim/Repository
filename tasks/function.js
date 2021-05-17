@@ -253,6 +253,24 @@ function task16() {
 }
 
 
+function task17() {
+    /*Напишите фрагмент кода, который принимает от пользователя число и если число четное
+    то программа выводит на экран число, которое больше введенного с клавиатуры на 10, в
+    противном случае выводит на экран число в 10 раз больше введенного.
+    */
+    let a = +prompt("Введите любое число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите любое число:");
+    if (a % 2 == 0) {
+        let b = a + 10;
+        alert("Вы ввели четное число, вот оно, увеличенное на 10: " + b);
+    }
+    else {
+        let c = a * 10;
+        alert("Вы ввели нечетное число, вот оно, умноженное на 10: " + c);
+    }
+}
+
+
 function task18() {
     /*Напишите фрагмент кода, который принимает от пользователя число и выводит на экран
     новое число, которое больше введенного с клавиатуры в 10 раз.
@@ -313,8 +331,28 @@ function task22() {
     полуночи да «данного момента» и сколько минут прошло за это же время, а также сколько
     минут осталось до полуночи.
     */
+    let h, m;
+    while (true) {
+        h = +prompt("Введите количество часов с 0 по 24: ");
+        h = checkOfNumber (h, "Вы ввели не число, введите количество часов:");
+        if(h >= 0 && h <= 24) {
+            break;
+        }
+    }
 
+    while (true) {
+        m = +prompt("Введите количество минут с 0 по 60: ");
+        m = checkOfNumber (m, "Вы ввели не число, введите количество минут:");
+        if(m >= 0 && m <= 60) {
+            break;
+        }
+    }
+    
+    let result1 = h * 3600 + m * 60;
+    let result2 = h * 60 + m;
+    let result3 = 24 * 60 - result2;
 
+    alert("Сколько секунд прошло с полуночи до введенного Вами времени и сколько минут прошло за это же время, а также сколько минут осталось до полуночи: " + result1 + ", " + result2 + ", " + result3);
 }
 
 
@@ -364,6 +402,7 @@ function task26() {
     выводит на экран его цифры, разделенные знаком «пробел».
     */
     let a = +prompt("Введите целое положительное двузначное число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
         
     if (a >= 10 && a <= 99) {
         let b = Math.floor(a / 10);
@@ -380,6 +419,7 @@ function task27() {
     выводит на экран его цифры, разделенные знаком «пробел».
     */
     let a = +prompt("Введите целое положительное трехзначное число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
 
     if (a > 99 && a <1000) {
         alert("Его цифры, разделенные пробелом: " + (a + "").split("").join(" "));
@@ -395,6 +435,7 @@ function task28() {
     есть для числа 45 будет выведено на экран 5 4.
     */
     let a = +prompt("Введите целое положительное двузначное число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
 
     if (a >= 10 && a <= 99) {
         let b = Math.floor(a / 10);
@@ -412,6 +453,7 @@ function task29() {
     4.
     */
     let a = +prompt("Введите целое положительное двузначное число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
 
     if (a >= 10 && a <= 99) {
         let b = Math.floor(a / 10);
@@ -429,6 +471,8 @@ function task30() {
     300 60 4.
     */
     let a = prompt("Введите целое положительное трехзначное число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
+    a = a.toString();
     let arr = a.split("");
     console.log(arr);
 
@@ -447,8 +491,125 @@ function task31() {
     окончательный результат вывести на экран. То есть для числа 37 следует построить число
     73 и вывести на экран 81.
     */
+    let a = +prompt("Введите целое положительное двузначное число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
 
+    if (a >= 10 && a <= 99) {
+        let b = Math.floor(a / 10);
+        let c = a % 10;
+        let d = Number([c, b].join(""));
+        d += 8;
+        alert("Его цифры наоборот и увеличенные на 8: " + d);
+    } else {
+        alert("Это не целое положительное двузначное число!");    
+    } 
 }
+
+
+function task32() {
+    /*Назовем «весом числа» сумму его цифр. Напишите код, который принимает от
+    пользователя число и выводит на экран его «вес».
+    */
+    let a = prompt("Введите любое число, сумма цифр которого будет его весом: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
+
+    a = a.toString().split('');
+    let sum = 0;
+    a.forEach(function callback(currentValue) {
+        sum += Number(currentValue);
+    });
+    alert("Вес числа: " + sum);
+}
+
+
+function task33() {
+    /*Дана строка. Сделайте заглавным первый символ этой строки не используя цикл. Найдите
+    два решения.
+    */
+    let str = prompt("Введите любое слово: ");
+    str = str.split("");
+    str[0] = str[0].toUpperCase();
+    str = str.join("");
+    alert(str);    
+}
+
+
+function task34() {
+    /*Дан массив с числами. Проверьте, что в этом массиве есть число 5. Если есть - выведите
+    'да', а если нет - выведите 'нет'.
+    */
+    let arr = prompt("Введите несколько любых цифр: ");
+    arr = arr.split("");
+
+    if (arr.includes("5")) {
+        alert("Да, цифра 5 есть в массиве!")
+    }
+    else {
+        alert("Нет, цифры 5 нет в массиве!")
+    }
+}
+
+
+function task35() {
+    /*Сделайте функцию, которая параметрами принимает 2 числа. Если эти числа равны - пусть
+    функция вернет true, а если не равны - false.
+    */
+    let a = +prompt("Введите первое число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
+
+    let b = +prompt("Введите второе число: ");
+    b = checkOfNumber(b, "Вы ввели не число, введите число: ");
+
+    if (a == b) {
+        alert(true + ", " + "введенные Вами числа равны")
+    }
+    else {
+        alert(false + ", " + "введенные Вами числа не равны")
+    }
+}
+
+
+function task41() {
+    /*Дан массив с элементами 'Привет, ', 'мир' и '!'. Необходимо записать в переменную text
+    фразу 'Привет, мир!', а затем вывести на экран содержимое этой переменной.
+    */
+    let arr = ["Привет, ", "мир", "!"];
+    let a = arr[0];
+    let b = arr[1] + arr[2];
+    let text = a + " " + b;
+    alert("Дан массив с элементами 'Привет, ', 'мир' и '!'. Необходимо записать в переменную text фразу 'Привет, мир!', а затем вывести на экран содержимое этой переменной: " + text);
+}
+
+
+function number (a, b) {
+    if (a + b > 10) {
+        return true;
+    }
+    else {
+        return false;
+    } 
+}  
+
+
+function task50() {
+    /*Сделайте функцию, которая параметрами принимает 2 числа. Если их сумма больше 10 -
+    пусть функция вернет true, а если нет - false.
+    */
+    let a = +prompt("Введите любое число: ");
+    a = checkOfNumber(a, "Вы ввели не число, введите число: ");
+
+    let b = +prompt("Введите любое число: ");
+    b = checkOfNumber(b, "Вы ввели не число, введите число: ");
+    
+    let result = number(a, b);
+    if (result) {
+        alert("сумма чисел больше 10");
+    }
+    else {
+        alert("сумма чисел меньше 10");
+    }
+}
+
 
 
 function getDigitsSum(number) {
@@ -470,103 +631,36 @@ function task73() {
 
 
 
-//while(true) {
-    let taskNumber = getTaskNumber();
-    switch(taskNumber) {
-        case 1:
-            task1();
-            break;
-        case 2:
-            task2();
-            break;
-        case 3:
-            task3();
-            break;
-        case 4:
-            task4();
-            break;
-        case 5:
-            task5();
-            break;
-        case 6:
-            task6();
-            break;
-        case 7:
-            task7();
-            break;
-        case 8:
-            task8();
-            break;
-        case 9:
-            task9();
-            break;
-        case 10:
-            task10();
-            break;
-        case 11:
-            task11();
-            break;
-        case 12:
-            task12();
-            break;
-        case 13:
-            task13();
-            break;
-        case 14:
-            task14();
-            break;
-        case 15:
-            task15();
-            break;
-        case 16:
-            task16();
-            break;
-        case 18:
-            task18();
-            break;
-        case 19:
-            task19();
-            break;
-        case 20:
-            task20();
-            break;
-        case 21:
-            task21();
-            break;
-        case 22:
-            task22();
-            break;
-        case 23:
-            task23();
-            break;
-        case 24:
-            task24();
-            break;
-        case 25:
-            task25();
-            break;
-        case 26:
-            task26();
-            break;
-        case 27:
-            task27();
-            break;
-        case 28:
-            task28();
-            break;
-        case 29:
-            task29();
-            break;
-        case 30:
-            task30();
-            break;
-        case 31:
-            task31();
-            break;
-        case 73:
-            task73();
-            break;            
-        default:
-            alert('Нет задачи с данным N');
+/**
+ * Функция проверяет существуют ли функции с именами с task1 по task1000
+ * и возвращает массив с именами существующих функций
+ * @returns array
+ */
+function getTaskList()
+{
+    let list = [];
+    for (let i = 1; i < 1000; i++) {
+        let functionName = "task" + i;
+        if (window[functionName] !== undefined
+            && typeof window[functionName] === "function"
+        ) {
+            list.push(functionName);
+        }
     }
-//}
+
+    return list;
+}
+
+let container = document.getElementById("container"); // записываем ссылку на элемент container в переменную, чтобы было удобней обращаться в этому элементу
+let taskList = getTaskList(); // получаем массив с именами существующих функций
+taskList.forEach(function (taskName) {
+    let task = document.createElement("div"); // создаем div для каждой задачи
+    task.innerHTML = taskName; // пишем в div название задачи
+    
+    task.onclick = window[taskName]; // навешиваем событие клика
+    container.appendChild(task); // добавляем элемент в контейнер
+});
+
+
+
+
