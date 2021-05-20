@@ -1,0 +1,76 @@
+html {
+	font-size: 15px;
+}
+
+:focus {
+	outline-color: green;
+}
+
+.generate-form {
+	display: flex;
+	justify-content: center;
+	
+	margin: 20px auto;
+	min-width: 350px;
+	width: 80vw;
+}
+
+.txt-input {
+	width: 25%;
+	padding: 10px;
+	padding-left: 15px;
+	margin-right: 20px;
+	
+	text-align: center;
+	font-weight: bold;
+	color: brown;
+	
+	border: none;
+	box-shadow: 0 0 2px gray;
+	background-color: lightyellow;
+}
+
+.btn,
+.btn[disabled] {
+	width: 75%;
+	padding: 5px 15px;
+	
+	font-size: 0.75rem;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.btn:not([disabled]) {
+	color: darkgreen;
+	
+	border: none;
+	background-color: lightgreen;
+	
+	transition: all 0.25s;
+}
+
+.btn:not([disabled]):hover {
+	cursor: pointer;
+	color: white;
+	background-color: green;
+}
+
+.container {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	padding: 20px;
+	margin: auto;
+	min-width: 400px;
+	width: 80vw;
+	min-height: 50vh;
+	background-color: lightblue;
+}
+
+.error {
+	outline-color: red;
+}
+
+.hiden {
+	display: none;
+}
